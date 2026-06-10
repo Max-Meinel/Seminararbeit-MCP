@@ -1,0 +1,3 @@
+xtravels: https://github.com/capire/xtravels
+Bookshop: https://github.com/capire/bookshop
+Ctsm-develop (intern): https://github.wdf.sap.corp/ctsm/ctsm.git

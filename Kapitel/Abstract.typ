@@ -1,0 +1,9 @@
+#import "../vendor/supercharged-dhbw/lib.typ": *
+
+Die vorliegende Bachelorarbeit von Max Christian Meinel (Kurs WWI23SEB, DHBW Mannheim) entsteht in Kooperation mit SAP SE.
+
+Diese Arbeit untersucht das Navigationsproblem in SAP CAP-Projekten und entwickelt eine VS Code Extension zur servicezentrierten Darstellung verteilter Artefakte. SAP Cloud Application Programming Model strukturiert Projekte nach dem Prinzip der Separation of Concerns in technische Ordner, wodurch ein einzelner fachlicher Service sich über viele Dateien verteilt. Entwickler müssen zur Analyse eines Services zwischen mehreren Dateien navigieren und die Service-Struktur manuell rekonstruieren, was zu hohem Navigationsaufwand führt.
+
+Der gewählte methodische Rahmen ist Design Science Research nach Peffers et al. Die Problemidentifikation quantifiziert den Navigationsaufwand anhand repräsentativer Szenarien. Das komplexeste Szenario erfordert zehn Navigationsschritte über drei Dateien. Eine Nutzwertanalyse vergleicht drei Integrationsstrategien und identifiziert die Language-Server-basierte Integration als vorteilhafteste Lösung. Die Extension kommuniziert mit dem CAP Language Server über das Language Server Protocol, transformiert die erhaltenen Symboldaten in eine hierarchische Baumstruktur und visualisiert diese über die TreeView API.
+
+Die Evaluation testet die Extension an drei Projekten unterschiedlicher Größe. Die Extension erfüllt sechs von acht Anforderungen vollständig, darunter die automatische Service-Identifikation, aggregierte Darstellung aller Artefakte und präzise Navigation zu Quellcode-Positionen. Die Messungen zeigen eine Reduktion des Navigationsaufwands um durchschnittlich 79 Prozent in den evaluierten Szenarien. Die servicezentrierte Sicht ergänzt die dateibasierte Navigation und reduziert den kognitiven Aufwand beim Verstehen und Bearbeiten von Services.

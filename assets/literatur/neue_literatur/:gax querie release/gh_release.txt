@@ -1,0 +1,2 @@
+release: https://github.tools.sap/cap/cds-lsp/releases/tag/rel%2F9.9.0
+Vs-code marketplace lap: https://marketplace.visualstudio.com/items?itemName=SAPSE.vscode-cds
