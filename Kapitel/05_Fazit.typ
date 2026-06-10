@@ -1,6 +1,6 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= Zusammenfassung, Fazit und Ausblick
+= Fazit und Ausblick
 
 == Fazit
 
