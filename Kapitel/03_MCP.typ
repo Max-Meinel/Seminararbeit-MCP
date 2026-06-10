@@ -1,8 +1,6 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= Model Context Protocol – Überblick und aktueller Stand
-
-== Entstehung und Motivation
+= Model Context Protocol
 
 - Anthropic hat MCP im November 2024 veröffentlicht
 - Ziel: einheitliche Schnittstelle für AI-Tool-Integration
@@ -14,14 +12,14 @@
 - Transport: wie Nachrichten übertragen werden (Stdio, HTTP+SSE)
 - Ablauf einer Anfrage von Host bis Server
 
-== Kernfunktionen: Tools, Resources und Prompts
+== Kernfunktionen
 
 - Tools: Aktionen die der Server anbietet (z.B. Datei lesen)
 - Resources: Daten die der Server bereitstellt
 - Prompts: vordefinierte Eingabevorlagen
 
-== Verbreitung, Ökosystem und Vergleich mit Alternativen
+== Sicherheitsrelevante Designentscheidungen
 
-- Wie viele MCP-Server es schon gibt
-- Welche Firmen mitmachen (Anthropic, Block, Replit, ...)
-- Vergleich mit OpenAI function calling und LangChain
+- Was Anthropic beim Design explizit für Sicherheit vorgesehen hat (z.B. Nutzerzustimmung bei Tool-Aufruf)
+- Was bewusst offen gelassen wurde (kein zentrales Verzeichnis, keine Signierung)
+- Warum diese Lücken die Angriffsvektoren in Kap. 4 erst ermöglichen

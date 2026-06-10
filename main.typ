@@ -33,7 +33,6 @@
 )
 
 #set heading(supplement: [Kapitel])
-#show heading.where(level: 3): set heading(outlined: false)
 #show figure.caption: set text(size: 9.5pt)
 
 #include "Kapitel/01_Einleitung.typ"

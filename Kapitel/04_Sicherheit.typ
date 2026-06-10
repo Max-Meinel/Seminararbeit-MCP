@@ -1,8 +1,8 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= IT-Sicherheit und MCP
+= Sicherheitsrisiken von MCP
 
-== Bedrohungsmodell
+== Angreifer und Ziele
 
 - Wer sind die Angreifer: böswillige MCP-Server, kompromittierte Clients, Supply-Chain-Angreifer
 - Was sind die Ziele: Daten stehlen, Aktionen ausführen, LLM manipulieren
@@ -38,16 +38,12 @@
 - Tools können Daten nach außen senden (z.B. über HTTP-Requests)
 - LLM merkt nicht, dass Daten abfließen, wenn Beschreibung irreführend ist
 
-== Authentifizierung und Zugriffskontrolle
-
-- Problem: jeder kann einen MCP-Server starten, keine zentrale Verifikation
-- OAuth-Support wird gerade eingebaut, aber noch nicht weit verbreitet
-- Least-Privilege-Prinzip: Server sollte nur das dürfen was er braucht
-
-== Sicherheitsempfehlungen und Best Practices
+== Gegenmaßnahmen
 
 - MCP-Server nur aus vertrauenswürdigen Quellen installieren
 - Tool-Beschreibungen vor Genehmigung prüfen
+- Authentifizierung: OAuth-Support wird eingebaut, aber noch nicht weit verbreitet
+- Least-Privilege-Prinzip: Server sollte nur das dürfen was er braucht
 - Sandboxing: Server in isolierter Umgebung laufen lassen
 - Keine sensiblen Daten in den Kontext geben, wenn nicht nötig
 - Auf Signierung und Versionierung von Servern achten

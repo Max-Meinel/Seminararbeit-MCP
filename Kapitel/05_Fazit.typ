@@ -2,12 +2,9 @@
 
 = Zusammenfassung, Fazit und Ausblick
 
-== Zusammenfassung der Ergebnisse
+== Fazit
 
 - Was wurde über MCP herausgefunden
-
-== Beantwortung der Forschungsfrage
-
 - Direkte Antwort: welche Risiken gibt es und wie geht man damit um
 
 == Ausblick und offene Fragen
