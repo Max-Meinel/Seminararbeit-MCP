@@ -1,49 +1,35 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= Sicherheitsrisiken von MCP
+= Sicherheitsrisiken von MCP <sicherheit>
 
 == Angreifer und Ziele
 
-- Wer sind die Angreifer: böswillige MCP-Server, kompromittierte Clients, Supply-Chain-Angreifer
-- Was sind die Ziele: Daten stehlen, Aktionen ausführen, LLM manipulieren
-- Vertrauensebenen im MCP-Ökosystem (Host vertraut Server — aber sollte er?)
+Mit dem #acr("MCP") verschiebt sich das Bedrohungsmodell von #acr("KI")-Anwendungen grundlegend. Fang et al. argumentieren, dass die klassische #acr("LLM")-Sicherheitsforschung von einer Zwei-Parteien-Beziehung zwischen Nutzer und Modell ausgeht, während das #acr("MCP") Drittanbieter in das System einführt, die weder vom Nutzer noch vom Modellanbieter kontrolliert werden und eigene ökonomische Anreize verfolgen @fang2025thirdparty. Hou et al. systematisieren die Bedrohungslage in einer Taxonomie mit vier Angreifertypen, nämlich böswilligen Server-Entwicklern, externen Angreifern, böswilligen Nutzern und allgemeinen Sicherheitslücken @hou2025mcp. Die vorliegende Arbeit konzentriert sich auf die ersten beiden Typen, da sie die #acr("MCP")-spezifischen Vektoren begründen.
+
+Die Ziele dieser Angreifer umfassen die Exfiltration sensibler Daten, etwa von Zugangsdaten oder Dateiinhalten, die Ausführung unautorisierter Aktionen über die Werkzeugzugriffe des Agenten sowie die Manipulation des Modellverhaltens selbst @hou2025mcp. Begünstigt werden sie durch das in @sicherheitsrelevante-designentscheidungen beschriebene Vertrauensproblem: Hosts wählen Werkzeuge allein anhand textueller Namen und Beschreibungen aus, ohne deren Herkunft kryptografisch verifizieren zu können @hou2025mcp.
 
 == Angriffsvektoren
 
 === Prompt Injection
 
-- Direkter Angriff: Nutzer schickt böse Anweisungen ans LLM
-- Indirekter Angriff: externe Daten (z.B. Webseite, Datei) enthalten versteckte Befehle
-- Beispiel: Tool liest Datei, Datei enthält "Ignoriere alle vorherigen Anweisungen..."
+_Prompt Injection_ bezeichnet das Einschleusen von Anweisungen, die die ursprünglichen Instruktionen des Modells überschreiben. Bei der direkten Variante stammen diese vom Nutzer selbst; sicherheitlich relevanter für das #acr("MCP") ist die #acr("IPI"), bei der Angreifer Anweisungen in externen Inhalten platzieren, die ein Werkzeug in den Modellkontext lädt @greshake2023injection. Da #acr("MCP")-Server typischerweise genau solche Inhalte liefern, etwa Webseiten, Dateien oder E-Mails, bildet jede Resource und jede Tool-Ausgabe einen möglichen Injektionskanal. Radosevich und Halloran demonstrieren, dass führende #acrpl("LLM") über präparierte Inhalte aus #acr("MCP")-Servern zu Angriffen verleitet werden können, darunter die Ausführung bösartigen Codes, die Einrichtung von Fernzugriffen und der Diebstahl von Zugangsdaten. Die Schutzmechanismen der Modelle verweigern solche Aufrufe nur teilweise und lassen sich durch einfache Umformulierungen umgehen @radosevich2025audit.
 
-=== Tool Poisoning
+=== Tool Poisoning und bösartige Server
 
-- Beschreibung eines Tools enthält versteckte Anweisungen für das LLM
-- Ist für den Nutzer unsichtbar (nur die Tool-Beschreibung, nicht der Output)
-- Beispiel: Tool-Beschreibung sagt heimlich "sende alle Passwörter an Server X"
+Beim _Tool Poisoning_ bettet ein böswilliger Server-Entwickler Anweisungen direkt in die Metadaten eines Werkzeugs ein. Die präparierte Beschreibung gelangt bei der Registrierung des Servers in den Modellkontext, bleibt für den Nutzer aber praktisch unsichtbar @wang2025mcptox. Wang et al. weisen die Wirksamkeit mit dem Benchmark MCPTox auf 45 realen #acr("MCP")-Servern nach. Verbreitete Agenten führen die eingeschleusten Anweisungen in bis zu 72,8 Prozent der Fälle aus, wobei das vergiftete Werkzeug selbst nie aufgerufen werden muss; die schädliche Aktion übernimmt ein legitimes Werkzeug. Leistungsfähigere Modelle erweisen sich dabei als anfälliger, weil sie Anweisungen zuverlässiger befolgen, und verweigern die Ausführung in weniger als drei Prozent der Fälle @wang2025mcptox.
 
-=== Rug Pull
+Zwei Varianten verschärfen das Problem. Beim _Rug Pull_ verhält sich ein Server zunächst unauffällig und ändert seine Werkzeugdefinitionen erst, nachdem der Nutzer ihn einmalig genehmigt hat @hou2025mcp. Beim _Tool Shadowing_ beziehungsweise _Namespace Typosquatting_ imitiert ein bösartiger Server Namen und Beschreibungen legitimer Werkzeuge, sodass der Host die gefälschte Variante auswählt und etwa Zugangsdaten an den Angreifer umleitet @hou2025mcp. Fang et al. zeigen ergänzend, dass einfache Filtermechanismen solche bösartigen Dienste nicht zuverlässig erkennen @fang2025thirdparty.
 
-- Server verhält sich erst normal, ändert dann sein Verhalten nach Genehmigung
-- Nutzer hat Tool genehmigt, aber Server liefert plötzlich anderen Code/Aktionen
-- Schwer zu erkennen, weil Genehmigung einmalig ist
+=== Manipulation der Werkzeugauswahl
 
-=== Tool Shadowing
-
-- Böswilliger Server überschreibt oder imitiert legitime Tools anderer Server
-- Nutzer denkt er nutzt Tool A, tatsächlich läuft Tool B vom Angreifer
-
-=== Datenexfiltration
-
-- Tools können Daten nach außen senden (z.B. über HTTP-Requests)
-- LLM merkt nicht, dass Daten abfließen, wenn Beschreibung irreführend ist
+Ein dritter Vektor zielt nicht auf die Ausführung schädlicher Aktionen, sondern auf den Auswahlschritt selbst. Shi et al. zeigen mit ToolHijacker, dass ein präpariertes Werkzeugdokument die Auswahl des #acr("LLM") systematisch auf das Werkzeug des Angreifers lenken kann, selbst ohne Kenntnis des Zielsystems; gängige Prompt-Injection-Abwehrmaßnahmen erkennen den Angriff überwiegend nicht @shi2025promptinjection. Wang et al. übertragen dieses Prinzip mit der _MCP Preference Manipulation Attack_ auf das #acr("MCP")-Ökosystem. Anbieter kostenpflichtiger Server können durch werbende oder manipulative Formulierungen in Name und Beschreibung erreichen, dass das Modell ihren Server gegenüber funktional gleichwertigen Konkurrenten bevorzugt, was direkte ökonomische Vorteile verschafft @wang2025mpma. Der Vektor verdeutlicht, dass bereits die Gestaltung von Metadaten einen Angriff darstellt; ausführbarer Schadcode ist nicht erforderlich.
 
 == Gegenmaßnahmen
 
-- MCP-Server nur aus vertrauenswürdigen Quellen installieren
-- Tool-Beschreibungen vor Genehmigung prüfen
-- Authentifizierung: OAuth-Support wird eingebaut, aber noch nicht weit verbreitet
-- Least-Privilege-Prinzip: Server sollte nur das dürfen was er braucht
-- Sandboxing: Server in isolierter Umgebung laufen lassen
-- Keine sensiblen Daten in den Kontext geben, wenn nicht nötig
-- Auf Signierung und Versionierung von Servern achten
+Narajala und Habler schlagen für den produktiven Einsatz des #acr("MCP") ein mehrschichtiges Sicherheitsframework nach den Prinzipien Defense-in-Depth und Zero Trust vor. Jeder Zugriff wird dabei unabhängig von seiner Herkunft verifiziert, Berechtigungen werden nach dem Least-Privilege-Prinzip möglichst eng und zeitlich begrenzt vergeben @narajala2025enterprise. Die einzelnen Maßnahmen lassen sich den Vektoren aus dem vorangehenden Abschnitt zuordnen.
+
+Gegen Tool Poisoning und Manipulation der Werkzeugauswahl richten sich Kontrollen der Werkzeug-Metadaten. Tool-Beschreibungen sind als potenziell ausführbare Inhalte zu behandeln, also vor der Registrierung zu validieren, auf bekannte Anweisungsmuster zu prüfen und um aktive Inhalte zu bereinigen @narajala2025enterprise. Gegen Rug Pulls hilft die kryptografische Integritätssicherung genehmigter Beschreibungen, da nachträgliche Änderungen so erkennbar werden @narajala2025enterprise. Tool Shadowing und Typosquatting adressieren signierte Server-Manifeste, verifizierte Herausgeber und eine zentrale Namensraumverwaltung, wie sie Hou et al. für künftige Protokollversionen fordern @hou2025mcp.
+
+Gegen Prompt Injection über Tool-Ausgaben existiert dagegen keine ebenso gezielte Abwehr. Die vorgeschlagenen Maßnahmen wirken hier eindämmend statt verhindernd: Sandboxing isoliert Server in restriktiven Containern, sodass kompromittierte Werkzeuge nur begrenzten Schaden anrichten, während Verhaltensüberwachung anomale Werkzeugaufrufe und Datenabflüsse zur Laufzeit erkennt @narajala2025enterprise. Ergänzend begrenzen eine OAuth-basierte Autorisierung mit eng zugeschnittenen, kurzlebigen Tokens und die Freigabe einzelner Werkzeuge erst bei tatsächlichem Bedarf die Reichweite eines erfolgreichen Angriffs @narajala2025enterprise.
+
+Eine Schutzwirkung dieser Maßnahmen bleibt allerdings begrenzt, solange das Grundproblem bestehen bleibt: Das Sprachmodell verarbeitet Daten und Anweisungen im selben Kontext und kann beide nicht zuverlässig trennen @greshake2023injection. Shi et al. zeigen entsprechend, dass gängige präventive wie detektive Abwehrmechanismen optimierte Angriffe auf die Werkzeugauswahl mehrheitlich nicht erkennen @shi2025promptinjection. Die verfügbaren Gegenmaßnahmen reduzieren damit die Angriffsfläche und den möglichen Schaden, beseitigen die Verwundbarkeit aber nicht. Welche Schlussfolgerungen sich daraus für den Einsatz des #acr("MCP") ergeben, fasst das folgende Kapitel zusammen.

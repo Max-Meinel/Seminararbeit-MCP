@@ -1,13 +1,17 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= Fazit und Ausblick
+= Fazit und Ausblick <fazit>
 
 == Fazit
 
-- Was wurde über MCP herausgefunden
-- Direkte Antwort: welche Risiken gibt es und wie geht man damit um
+Die vorliegende Arbeit untersucht das #acr("MCP") hinsichtlich seiner Architektur, seines aktuellen Stands und seiner sicherheitlichen Herausforderungen. Das Protokoll löst ein reales Integrationsproblem: Es ersetzt fragmentierte, anwendungsspezifische Werkzeuganbindungen durch eine einheitliche Client-Server-Architektur mit dynamischer Discovery und hat sich seit seiner Veröffentlichung als faktischer Standard für #acr("LLM")-Agenten etabliert @hou2025mcp. Zugleich zeigt die Messung des Ökosystems, dass dessen Wachstum von ungeprüften, teils verwaisten Servern geprägt ist @guo2025measurement.
+
+Zur Forschungsfrage ergibt die Analyse drei wesentliche Angriffsvektoren: Prompt Injection über Inhalte, die Werkzeuge in den Modellkontext laden, Tool Poisoning über präparierte Werkzeug-Metadaten einschließlich der Varianten Rug Pull und Tool Shadowing sowie die Manipulation der Werkzeugauswahl. Diese Vektoren sind keine theoretischen Konstrukte. Sie sind gegen reale #acr("MCP")-Server und produktiv eingesetzte Modelle demonstriert, mit Erfolgsraten von über 70 Prozent bei Tool Poisoning und der Beobachtung, dass gerade leistungsfähigere Modelle anfälliger reagieren @wang2025mcptox. Alle drei nutzen dieselben Designentscheidungen aus: Hosts vertrauen unverifizierten Server-Metadaten, und das Sprachmodell verarbeitet Daten und Anweisungen im selben Kontext. Die Sicherheitsprinzipien der Spezifikation bleiben unverbindlich und verlagern die Verantwortung auf die Implementierungen @anthropic2024mcp.
+
+Zur Mitigation stehen mehrschichtige Maßnahmen zur Verfügung, darunter die Validierung und Integritätssicherung von Werkzeugbeschreibungen, Sandboxing, Verhaltensüberwachung und eine restriktive Autorisierung nach Zero-Trust-Prinzipien @narajala2025enterprise. Diese Maßnahmen verkleinern Angriffsfläche und Schadenspotenzial, beseitigen die zugrunde liegende Verwundbarkeit jedoch nicht. Ein sicherer Einsatz des #acr("MCP") erfordert daher derzeit, Server als nicht vertrauenswürdige Drittkomponenten zu behandeln und ihre Rechte konsequent zu begrenzen.
 
 == Ausblick und offene Fragen
 
-- MCP ist noch jung und entwickelt sich schnell
-- Was noch fehlt: bessere Authentifizierung, Zertifizierung von Servern
+Das #acr("MCP")-Ökosystem befindet sich in einer frühen, sich schnell wandelnden Phase. Hou et al. benennen als zentrale Lücken das Fehlen einer zentralen Sicherheitsaufsicht mit offiziellem Verzeichnis und standardisiertem Paketmanagement, eines einheitlichen Authentifizierungs- und Autorisierungsrahmens sowie ausreichender Audit- und Monitoring-Fähigkeiten im Protokoll @hou2025mcp. Signierte Server-Manifeste, verifizierte Herausgeber und eine zentrale Namensraumverwaltung würden mehrere der beschriebenen Vektoren auf Protokollebene adressieren, statt sie einzelnen Implementierungen zu überlassen @hou2025mcp. Bis dahin bleiben unternehmensseitige Schutzframeworks wie das von Narajala und Habler vorgeschlagene die praktikable Zwischenlösung @narajala2025enterprise.
+
+Offen bleibt vor allem das Grundproblem der fehlenden Trennung von Daten und Anweisungen im Modellkontext. Solange Abwehrmechanismen optimierte Angriffe auf Werkzeugbeschreibungen und Werkzeugauswahl nicht zuverlässig erkennen @shi2025promptinjection, ist jede #acr("MCP")-Integration eine Abwägung zwischen Funktionsumfang und Angriffsfläche. Die weitere Entwicklung des Protokolls wird sich daran messen lassen, ob es seine Offenheit mit verbindlichen Vertrauensmechanismen verbinden kann.

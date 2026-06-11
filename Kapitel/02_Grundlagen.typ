@@ -1,15 +1,21 @@
 #import "../vendor/supercharged-dhbw/lib.typ": *
 
-= Grundlagen
+= Grundlagen <grundlagen>
 
-== Large Language Models und KI-Agenten
+== Large Language Models und autonome Agenten
 
-- Was LLMs sind (GPT, Claude usw.)
-- Was ein Agent ist: LLM das selbst Aktionen ausführen kann
-- Agenten brauchen Zugriff auf externe Systeme
+#acrpl("LLM") sind Sprachmodelle, die auf umfangreichen Textkorpora trainiert werden und über eine sehr große Zahl an Parametern verfügen. Wang et al. führen ihre Leistungsfähigkeit auf diese Kombination aus breiten Trainingsdaten und hoher Parameterzahl zurück @wang2023survey. Solche Modelle lösen neue Aufgaben bereits anhand weniger Beispiele oder rein textueller Anweisungen. Zugleich weisen sie strukturelle Grenzen auf. Sie haben keinen Zugriff auf aktuelle Informationen, neigen zur Halluzination von Fakten und führen präzise Berechnungen häufig fehlerhaft aus @schick2023toolformer.
+
+Auf diesen Modellen baut das Konzept des #acr("LLM")-basierten Agenten auf. Ein autonomer Agent ist ein System, das in eine Umgebung eingebettet ist, diese wahrnimmt und durch eigene Aktionen verändert. Bei #acr("LLM")-basierten Agenten dient das Sprachmodell als zentrale Steuerungskomponente, die Beobachtungen verarbeitet und daraus selbstständig Pläne und Aktionen ableitet @wang2023survey. Wang et al. fassen die Architektur solcher Agenten in einem einheitlichen Rahmen aus vier Modulen zusammen. Ein Profilmodul legt die Rolle des Agenten fest, ein Gedächtnismodul speichert wahrgenommene Informationen, ein Planungsmodul zerlegt Aufgaben in Schritte, und ein Aktionsmodul übersetzt die Entscheidungen in konkrete Ausgaben @wang2023survey.
+
+Eine ergänzende Perspektive liefern Sumers et al. mit dem Konzept kognitiver Architekturen für Sprachagenten. Sie beschreiben Agenten anhand von drei Dimensionen, nämlich dem Informationsspeicher (Arbeits- und Langzeitgedächtnis), dem Aktionsraum und dem Entscheidungsprozess @sumers2023cognitive. Der Aktionsraum umfasst dabei interne Aktionen, etwa das Aktualisieren des Gedächtnisses, und externe Aktionen, mit denen der Agent auf seine Umgebung einwirkt. Erst diese externen Aktionen verankern den Agenten in der Außenwelt (_Grounding_) und gleichen die begrenzte Wissensbasis des Modells aus @sumers2023cognitive. Für externe Aktionen benötigt ein Agent folglich Schnittstellen zu Systemen außerhalb des Sprachmodells.
 
 == Werkzeugintegration in KI-Systemen
 
-- LLMs können Tools aufrufen (Websuche, Code, Dateien)
-- Problem: jede App löst das anders, kein Standard
-- Genau dieses Problem löst MCP
+Die Anbindung externer Werkzeuge (_Tool Use_) setzt genau an den genannten Grenzen von #acrpl("LLM") an. Schick et al. zeigen mit _Toolformer_, dass ein Sprachmodell selbstüberwacht lernen kann, an geeigneten Stellen im Text externe #acrs("API", plural: true) aufzurufen, etwa einen Taschenrechner, eine Suchmaschine oder ein Frage-Antwort-System, und deren Ergebnisse in die weitere Textgenerierung einzubeziehen @schick2023toolformer. Das Modell entscheidet dabei selbst, wann es welches Werkzeug mit welchen Argumenten verwendet. Auf diese Weise verbessert sich die Leistung deutlich, ohne dass die allgemeinen Sprachfähigkeiten verloren gehen @schick2023toolformer.
+
+In produktiven #acr("KI")-Systemen etablierte sich dieses Prinzip unter dem Begriff _Function Calling_. Das #acr("LLM") erzeugt strukturierte Aufrufe externer Funktionen, deren Ergebnisse anschließend in den Kontext zurückfließen @hou2025mcp. Hou et al. beschreiben die so entstandene Integrationslandschaft als fragmentiert. Entwickler müssen für jeden Dienst eigene Schnittstellen definieren, Authentifizierung verwalten und Ausführungslogik implementieren, während sich die Mechanismen zwischen den Plattformen unterscheiden. Bestehende Agenten-Frameworks arbeiten zudem überwiegend mit fest einprogrammierten Integrationen, was Interoperabilität und Wartbarkeit einschränkt @hou2025mcp.
+
+Mit der Werkzeugintegration entsteht zugleich eine neue Angriffsfläche. Greshake et al. zeigen, dass #acr("LLM")-integrierte Anwendungen die Grenze zwischen Daten und Anweisungen verwischen. Inhalte, die ein Werkzeug aus externen Quellen abruft, können versteckte Anweisungen enthalten, die das Modell wie Befehle interpretiert und ausführt @greshake2023injection. Die Verarbeitung nicht vertrauenswürdiger Inhalte gleicht damit konzeptionell der Ausführung von fremdem Code.
+
+Den beschriebenen Ansätzen fehlt eine einheitliche, herstellerübergreifende Schnittstelle für die Anbindung von Werkzeugen. Das folgende Kapitel stellt mit dem #acr("MCP") einen offenen Standard vor, der diese Lücke schließen soll.

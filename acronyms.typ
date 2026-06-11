@@ -6,11 +6,9 @@
   "API": "Application Programming Interface",
   "HTTP": "Hypertext Transfer Protocol",
   "IPI": "Indirect Prompt Injection",
-  "JSON": "JavaScript Object Notation",
   "JSON-RPC": "JavaScript Object Notation Remote Procedure Call",
   "KI": "Künstliche Intelligenz",
   "LLM": "Large Language Model",
   "MCP": "Model Context Protocol",
   "SSE": "Server-Sent Events",
-  "URL": "Uniform Resource Locator",
 )

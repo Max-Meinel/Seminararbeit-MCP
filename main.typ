@@ -28,11 +28,31 @@
   type-of-thesis: "Seminararbeit",
   show-abstract: true,
   abstract: [
-    // Platzhalter — am Ende der Arbeit ausformulieren (ca. 150–250 Wörter):
-    // Kontext, Forschungsfrage, Vorgehen, zentrale Ergebnisse, Fazit.
-    Diese Arbeit untersucht das Model Context Protocol (MCP) hinsichtlich seiner
-    Architektur, seines aktuellen Stands und seiner IT-sicherheitlichen
-    Herausforderungen. _(Platzhalter, wird nach Fertigstellung der Kapitel ersetzt.)_
+    Large Language Models entwickeln sich zu autonomen Agenten, die für ihre
+    Aufgaben Zugriff auf externe Werkzeuge und Datenquellen benötigen. Mit dem
+    Model Context Protocol (MCP) veröffentlichte Anthropic im November 2024 einen
+    offenen Standard, der diese Anbindung vereinheitlicht und sich seither
+    branchenweit etabliert. Die vorliegende Arbeit untersucht die Forschungsfrage,
+    welche Angriffsvektoren das MCP aufweist und inwieweit sich diese mitigieren
+    lassen. Dazu werden zunächst die Grundlagen von Sprachmodellen, Agenten und
+    Werkzeugintegration sowie die Architektur und die sicherheitsrelevanten
+    Designentscheidungen des Protokolls dargestellt. Auf Basis der aktuellen
+    Sicherheitsforschung werden anschließend drei wesentliche Angriffsvektoren
+    systematisiert: Prompt Injection über Inhalte, die Werkzeuge in den
+    Modellkontext laden, Tool Poisoning über präparierte Werkzeug-Metadaten
+    einschließlich der Varianten Rug Pull und Tool Shadowing sowie die
+    Manipulation der Werkzeugauswahl. Empirische Studien belegen die praktische
+    Wirksamkeit dieser Angriffe gegen reale MCP-Server und verbreitete Modelle.
+    Als gemeinsame Ursachen werden zwei Designentscheidungen identifiziert: Hosts
+    vertrauen unverifizierten Server-Metadaten, und das Sprachmodell verarbeitet
+    Daten und Anweisungen im selben Kontext. Verfügbare Gegenmaßnahmen wie die
+    Validierung von Werkzeugbeschreibungen, Sandboxing und restriktive
+    Autorisierung nach Zero-Trust-Prinzipien verkleinern Angriffsfläche und
+    Schadenspotenzial, beseitigen die zugrunde liegende Verwundbarkeit jedoch
+    nicht. Ein sicherer Einsatz des MCP erfordert daher gegenwärtig, Server als
+    nicht vertrauenswürdige Drittkomponenten zu behandeln; auf Protokollebene
+    bleiben verbindliche Vertrauensmechanismen wie signierte Manifeste und ein
+    verifiziertes Serververzeichnis offene Entwicklungsfelder.
   ],
   show-code-snippets: true,
   show-confidentiality-statement: false,

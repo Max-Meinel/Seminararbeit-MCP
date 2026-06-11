@@ -127,7 +127,7 @@
         columns: (max-width + 0.5em, auto),
         gutter: 3em,
         row-gutter: 0.5em,
-        [*#acr*], text(explanation),
+        [*#acr*#label("acronyms-" + acr)], text(explanation),
       )
     }
   }
