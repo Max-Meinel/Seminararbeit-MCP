@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "paper-search": {
+      "command": "uv",
+      "args": ["run", "--directory", "/home/mazus/paper-search-mcp", "paper-search-mcp"]
+    }
+  }
+}

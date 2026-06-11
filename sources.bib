@@ -1,1 +1,124 @@
-% Literaturverzeichnis
+% Literaturquellen — Seminararbeit "Model Context Protocol"
+% Zuordnung Quelle -> Kapitel und Qualitätsbewertung: siehe papers/README.md
+% Lokale Volltexte: papers/
+
+% ===== Einleitung / Grundlagen =====
+
+@article{wang2023survey,
+  author  = {Wang, Lei and Ma, Chen and Feng, Xueyang and Zhang, Zeyu and Yang, Hao and Zhang, Jingsen and Chen, Zhiyuan and Tang, Jiakai and Chen, Xu and Lin, Yankai and Zhao, Wayne Xin and Wei, Zhewei and Wen, Ji-Rong},
+  title   = {A Survey on Large Language Model Based Autonomous Agents},
+  journal = {Frontiers of Computer Science},
+  volume  = {18},
+  number  = {6},
+  year    = {2024},
+  doi     = {10.1007/s11704-024-40231-1}
+}
+
+@inproceedings{schick2023toolformer,
+  author    = {Schick, Timo and Dwivedi-Yu, Jane and Dess{\`i}, Roberto and Raileanu, Roberta and Lomeli, Maria and Zettlemoyer, Luke and Cancedda, Nicola and Scialom, Thomas},
+  title     = {Toolformer: Language Models Can Teach Themselves to Use Tools},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023},
+  eprint    = {2302.04761},
+  url       = {https://arxiv.org/abs/2302.04761}
+}
+
+@article{sumers2023cognitive,
+  author  = {Sumers, Theodore R. and Yao, Shunyu and Narasimhan, Karthik and Griffiths, Thomas L.},
+  title   = {Cognitive Architectures for Language Agents},
+  journal = {Transactions on Machine Learning Research},
+  year    = {2024},
+  eprint  = {2309.02427},
+  url     = {https://arxiv.org/abs/2309.02427}
+}
+
+@inproceedings{greshake2023injection,
+  author    = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and Endres, Christoph and Holz, Thorsten and Fritz, Mario},
+  title     = {Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection},
+  booktitle = {Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec)},
+  year      = {2023},
+  doi       = {10.1145/3605764.3623985}
+}
+
+% ===== MCP (Kapitel 3) =====
+
+@misc{anthropic2024mcp,
+  author       = {{Anthropic}},
+  title        = {Model Context Protocol -- Specification},
+  year         = {2024},
+  url          = {https://modelcontextprotocol.io},
+  urldate      = {2026-06-11},
+  howpublished = {Online}
+}
+
+@article{hou2025mcp,
+  author  = {Hou, Xinyi and Zhao, Yanjie and Wang, Shenao and Wang, Haoyu},
+  title   = {Model Context Protocol ({MCP}): Landscape, Security Threats, and Future Research Directions},
+  journal = {ACM Transactions on Software Engineering and Methodology},
+  year    = {2025},
+  eprint  = {2503.23278},
+  url     = {https://arxiv.org/abs/2503.23278}
+}
+
+@misc{guo2025measurement,
+  author = {Guo, Hechuan and Hao, Yongle and Zhang, Yue and Xu, Minghui and Lv, Peizhuo and Chen, Jiezhi and Cheng, Xiuzhen},
+  title  = {A Measurement Study of Model Context Protocol Ecosystem},
+  year   = {2025},
+  eprint = {2509.25292},
+  url    = {https://arxiv.org/abs/2509.25292}
+}
+
+% ===== Sicherheit (Kapitel 4) =====
+
+@misc{radosevich2025audit,
+  author = {Radosevich, Brandon and Halloran, John},
+  title  = {{MCP} Safety Audit: {LLMs} with the Model Context Protocol Allow Major Security Exploits},
+  year   = {2025},
+  eprint = {2504.03767},
+  url    = {https://arxiv.org/abs/2504.03767}
+}
+
+@misc{wang2025mcptox,
+  author = {Wang, Zhiqiang and Gao, Yichao and Wang, Yanting and Liu, Suyuan and Sun, Haifeng and Cheng, Haoran and Shi, Guanquan and Du, Haohua and Li, Xiangyang},
+  title  = {{MCPTox}: A Benchmark for Tool Poisoning Attack on Real-World {MCP} Servers},
+  year   = {2025},
+  eprint = {2508.14925},
+  url    = {https://arxiv.org/abs/2508.14925}
+}
+
+@misc{fang2025thirdparty,
+  author = {Fang, Junfeng and Yao, Zijun and Wang, Ruipeng and Ma, Haokai and Wang, Xiang and Chua, Tat-Seng},
+  title  = {We Should Identify and Mitigate Third-Party Safety Risks in {MCP}-Powered Agent Systems},
+  year   = {2025},
+  eprint = {2506.13666},
+  url    = {https://arxiv.org/abs/2506.13666}
+}
+
+@inproceedings{shi2025promptinjection,
+  author    = {Shi, Jiawen and Yuan, Zenghui and Tie, Guiyao and Zhou, Pan and Gong, Neil Zhenqiang and Sun, Lichao},
+  title     = {Prompt Injection Attack to Tool Selection in {LLM} Agents},
+  booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
+  year      = {2026},
+  eprint    = {2504.19793},
+  url       = {https://arxiv.org/abs/2504.19793}
+}
+
+@inproceedings{wang2025mpma,
+  author    = {Wang, Zihan and Zhang, Rui and Liu, Yu and Fan, Wenshu and Jiang, Wenbo and Zhao, Qingchuan and Li, Hongwei and Xu, Guowen},
+  title     = {{MPMA}: Preference Manipulation Attack Against Model Context Protocol},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  year      = {2026},
+  eprint    = {2505.11154},
+  url       = {https://arxiv.org/abs/2505.11154}
+}
+
+% ===== Sicherheit / Fazit (Mitigations) =====
+
+@inproceedings{narajala2025enterprise,
+  author    = {Narajala, Vineeth Sai and Habler, Idan},
+  title     = {Enterprise-Grade Security for the Model Context Protocol ({MCP}): Frameworks and Mitigation Strategies},
+  booktitle = {International Conference on Applied Informatics and Communication (ICAIC)},
+  year      = {2025},
+  eprint    = {2504.08623},
+  url       = {https://arxiv.org/abs/2504.08623}
+}
