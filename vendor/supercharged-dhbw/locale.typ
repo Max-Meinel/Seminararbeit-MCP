@@ -54,7 +54,7 @@
 )
 
 #let DECLARATION_OF_AUTHORSHIP_TITLE = (
-  "de": "Selbstständigkeitserklärung",
+  "de": "Ehrenwörtliche Erklärung",
   "en": "Declaration of Authorship",
 )
 

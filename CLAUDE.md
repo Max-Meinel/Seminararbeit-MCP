@@ -6,7 +6,7 @@ Seminararbeit (DHBW Mannheim, Wirtschaftsinformatik SE) von Max Meinel:
 **„Model Context Protocol: Architektur, aktueller Stand und IT-sicherheitliche Herausforderungen"**
 
 - **Sprache der Arbeit: Deutsch** (Fachbegriffe wie „Prompt Injection" bleiben englisch). Antworten an den Nutzer ebenfalls auf Deutsch.
-- Geschrieben in **Typst** mit dem Template `vendor/supercharged-dhbw` (nicht verändern).
+- Geschrieben in **Typst** mit dem Template `vendor/supercharged-dhbw`. Das Template ist lokal vendored (normal in git getrackt, kein Submodul/Universe-Paket) und **darf angepasst werden**; Anpassungen werden mitcommittet und vom CI-Build (`.github/workflows/typst.yml`) verwendet.
 - Schwerpunkt der Arbeit: IT-Sicherheit von MCP (Kapitel 4 ist das Kernkapitel).
 
 ## Struktur
@@ -62,6 +62,19 @@ Nach inhaltlichen Änderungen immer kompilieren und auf Fehler prüfen (insbeson
 
 - **paper-search MCP**: konfiguriert in `.mcp.json` (läuft via `uv run --directory /home/mazus/paper-search-mcp paper-search-mcp`). Bietet Tools wie `search_arxiv`, `search_semantic`, `search_crossref`, `download_arxiv`, plus Volltext-Extraktion. Für Literatursuche immer diesen MCP nutzen statt Web-Suche.
 - Falls der MCP nicht verbunden ist: Session neu starten bzw. mit `/mcp` prüfen.
+
+## Schreibstil
+
+- **Unpersönlich schreiben**: kein „ich"/„wir"/„man". Stattdessen „die vorliegende Arbeit untersucht…", Passiv oder Sachsubjekte („Das Protokoll definiert…").
+- **Zeitform**: durchgehend Präsens, auch für Aussagen aus Quellen („Wang et al. beschreiben…", nicht „beschrieben"). Vergangenheit nur für tatsächlich Vergangenes (z. B. „Anthropic veröffentlichte MCP im November 2024").
+- **Abkürzungen**: nie als Klartext schreiben, sondern immer `#acr("LLM")` bzw. Plural `#acrpl("LLM")` verwenden (Template schreibt bei Ersterwähnung automatisch aus, danach nur Kurzform). Allgemein bekannte Abkürzungen (HTTP, API, JSON, URL) mit `#acrs("...")`, die werden nie ausgeschrieben, stehen aber im Verzeichnis. Neue Abkürzungen zuerst in `acronyms.typ` eintragen.
+- **Englische Fachbegriffe**: bei Ersterwähnung kursiv (`_Tool Poisoning_`), bei nicht selbsterklärenden Begriffen mit kurzer deutscher Erläuterung; danach normal gesetzt. Keine eingedeutschten Kunstübersetzungen.
+- **Zitierposition**: `@key` steht direkt hinter der belegten Aussage, vor dem Satzzeichen. Mehrere Aussagen aus derselben Quelle im selben Absatz: einmal am Ende der zusammenhängenden Passage genügt.
+- **Interpunktion**: keine Gedankenstriche (—/–) im Fließtext; stattdessen Kommas, Klammern oder eigenständige Sätze. Doppelpunkte im Fließtext sparsam einsetzen (nur wo eine Umformulierung gekünstelt wirken würde).
+- **Satzbau**: kurze Hauptsätze bevorzugen, maximal eine Nebensatzebene, keine Aufzählungs-Schachtelsätze. Lieber zwei Sätze als ein überladener.
+- **Absatzlogik**: ein Gedanke pro Absatz; jeder Absatz beginnt mit seiner Kernaussage, danach Beleg und Einordnung. Absätze von 3–6 Sätzen, keine Ein-Satz-Absätze.
+- **Nüchternheit**: keine wertenden Adjektive ohne Beleg („beeindruckend", „enorm", „revolutionär"), keine rhetorischen Fragen, keine Superlative. Bewertungen nur als belegte Aussage einer Quelle.
+- **Kapitelübergänge**: jedes Kapitel endet mit 1–2 Sätzen Überleitung zum nächsten; keine Vorab-Zusammenfassungen am Kapitelanfang.
 
 ## Arbeitsweise
 
