@@ -1,0 +1,68 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="mcp-architektur" name="MCP-Architektur">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="5" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Nutzer -->
+        <mxCell id="user" value="Nutzer" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="170" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- MCP-Host -->
+        <mxCell id="host" value="MCP-Host" style="rounded=1;arcSize=6;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="130" y="90" width="180" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" value="Sprachmodell" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="host">
+          <mxGeometry x="30" y="45" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="client1" value="MCP-Client" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="host">
+          <mxGeometry x="30" y="110" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- MCP-Server 1 mit Capabilities -->
+        <mxCell id="server1" value="MCP-Server" style="rounded=1;arcSize=6;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="140" width="170" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tools" value="Tools" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="server1">
+          <mxGeometry x="25" y="35" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="resources" value="Resources" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="server1">
+          <mxGeometry x="25" y="72" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="prompts" value="Prompts" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="server1">
+          <mxGeometry x="25" y="109" width="120" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- MCP-Server 2 (weiterer Server, verkuerzt) -->
+
+        <!-- Externe Systeme -->
+        <mxCell id="ext" value="Externe Systeme" style="rounded=1;arcSize=6;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;dashed=1;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="140" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="web" value="Webdienst" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="ext">
+          <mxGeometry x="20" y="35" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="db" value="Datenbank" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="ext">
+          <mxGeometry x="20" y="72" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="fs" value="Dateisystem" style="rounded=1;arcSize=8;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="ext">
+          <mxGeometry x="20" y="109" width="120" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Verbindungen -->
+        <mxCell id="e-user-host" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=9;" edge="1" parent="1" source="user" target="host">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-c1-s1" value="JSON-RPC (1:1)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=9;verticalAlign=bottom;" edge="1" parent="1" source="client1" target="server1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-s1-ext" value="API-Zugriff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=9;verticalAlign=bottom;" edge="1" parent="1" source="server1" target="ext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
