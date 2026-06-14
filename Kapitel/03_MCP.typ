@@ -14,39 +14,32 @@ Das Protokoll hat sich seit seiner Veröffentlichung schnell verbreitet. Tausend
 Die Architektur des #acr("MCP") besteht aus drei Komponenten: Host, Client und Server @hou2025mcp. Der Host ist die #acr("KI")-Anwendung selbst, etwa ein Chat-Client wie Claude Desktop oder eine Entwicklungsumgebung wie Cursor. Er führt das Sprachmodell aus und bettet einen oder mehrere #acr("MCP")-Clients ein. Jeder Client unterhält eine Eins-zu-eins-Verbindung zu genau einem #acr("MCP")-Server, fragt dessen Funktionen ab und leitet Aufrufe und Antworten zwischen Host und Server weiter. Der Server kapselt den Zugriff auf ein externes System, beispielsweise einen Webdienst, eine Datenbank oder das lokale Dateisystem, und stellt dessen Funktionen in standardisierter Form bereit @hou2025mcp. @fig-mcp-architektur zeigt das Zusammenspiel der Komponenten im Überblick.
 
 #figure(
-  caption: [Architektur des Model Context Protocol (eigene Darstellung in Anlehnung an @hou2025mcp)],
+  caption: [Architektur des Model Context Protocol (eigene Darstellung in Anlehnung an @guo2025measurement)],
   diagram(
-    spacing: (58pt, 13pt),
-    node-stroke: 0.6pt,
-    node-corner-radius: 2pt,
-    node-inset: 6pt,
+    spacing: (50pt, 6pt),
+    node-stroke: 0.8pt,
+    node-corner-radius: 3pt,
+    node-inset: 10pt,
     {
-      let box-width = 74pt
-      let inner(pos, body, name) = node(pos, text(size: 9pt, body), name: name, width: box-width)
-      let group-label(pos, body, name) = node(pos, text(size: 9pt)[*#body*], stroke: none, name: name)
-      // Nutzer
-      node((0, 0.78), [Nutzer], stroke: none, name: <user>)
-      // MCP-Host
-      group-label((1, -0.25), [MCP-Host], <host-label>)
-      inner((1, 0.5), [Sprachmodell], <llm>)
-      inner((1, 1.8), [MCP-Client], <client>)
-      node(enclose: (<host-label>, <llm>, <client>), inset: 9pt, stroke: 0.8pt, name: <host>)
-      // MCP-Server
-      group-label((2.5, -0.25), [MCP-Server], <server-label>)
-      inner((2.5, 0.5), [Tools], <tools>)
-      inner((2.5, 1.15), [Resources], <res>)
-      inner((2.5, 1.8), [Prompts], <prompts>)
-      node(enclose: (<server-label>, <tools>, <res>, <prompts>), inset: 9pt, stroke: 0.8pt, name: <server>)
-      // Externe Systeme
-      group-label((4, -0.25), [Externe Systeme], <ext-label>)
-      inner((4, 0.5), [Webdienst], <web>)
-      inner((4, 1.15), [Datenbank], <db>)
-      inner((4, 1.8), [Dateisystem], <fs>)
-      node(enclose: (<ext-label>, <web>, <db>, <fs>), inset: 9pt, stroke: (dash: "dashed", thickness: 0.8pt), name: <ext>)
-      // Verbindungen
-      edge(<user>, <host>, "<->")
-      edge(<host>, <server>, "<->", label: text(size: 8pt)[JSON-RPC #linebreak() (1:1)], label-sep: 3pt, label-fill: white)
-      edge(<server>, <ext>, "<->", label: text(size: 8pt)[API-Zugriff], label-sep: 3pt, label-fill: white)
+      node((0, 0), align(center)[
+        *MCP-Host* \
+        #text(size: 8.5pt)[MCP-Client] \
+        #text(size: 7.5pt, fill: gray)[z. B. Claude Desktop, Cursor]
+      ], name: <host>)
+      node((1, 0), align(center)[
+        *MCP-Server* \
+        #text(size: 8.5pt)[Tools / Resources / Prompts]
+      ], name: <server>)
+      node((2, 0), align(center)[
+        *Externe Systeme* \
+        #text(size: 8.5pt)[Webdienst, Datenbank, Dateisystem]
+      ], stroke: (dash: "dashed", thickness: 0.8pt), name: <ext>)
+      edge(<host>, <server>, "<->",
+        label: text(size: 8pt)[JSON-RPC 2.0 #linebreak() (stdio / HTTP+SSE)],
+        label-sep: 3pt, label-fill: white)
+      edge(<server>, <ext>, "<->",
+        label: text(size: 8pt)[Tool-Aufruf / #linebreak() Datenzugriff],
+        label-sep: 3pt, label-fill: white)
     },
   ),
 ) <fig-mcp-architektur>

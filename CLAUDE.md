@@ -23,6 +23,7 @@ Seminararbeit (DHBW Mannheim, Wirtschaftsinformatik SE) von Max Meinel:
 ```bash
 typst compile main.typ            # PDF bauen
 typst watch main.typ              # Live-Vorschau
+python3 wordcount.py              # saubere Wortzahl pro Kapitel (ohne Typst-Syntax)
 cat Kapitel/*.typ | wc -w         # grobe Wortzahl (zählt auch Typst-Syntax mit)
 ```
 
