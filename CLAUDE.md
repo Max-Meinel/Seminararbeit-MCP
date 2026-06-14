@@ -39,11 +39,11 @@ Nach inhaltlichen Änderungen immer kompilieren und auf Fehler prüfen (insbeson
 
 | Kapitel | Ziel |
 |---|---|
-| 01 Einleitung | ~350 |
-| 02 Grundlagen | ~550 |
-| 03 MCP | ~800 |
-| 04 Sicherheit | ~900 |
-| 05 Fazit | ~400 |
+| 01 Einleitung | ~290 |
+| 02 Grundlagen | ~430 |
+| 03 MCP | ~680 |
+| 04 Sicherheit | ~1400 |
+| 05 Fazit | ~360 |
 
 ### Quellen-Zuordnung (Richtwerte)
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Wortzähler für den Fließtext der Seminararbeit.
 
-Zählt den Abstract aus main.typ und den reinen Inhalt aus Kapitel/01_*.typ …
-05_*.typ — also weder Inhaltsverzeichnis, Literaturverzeichnis noch Anhänge.
+Zählt den reinen Inhalt aus Kapitel/01_*.typ … 05_*.typ — also weder
+Inhaltsverzeichnis, Literaturverzeichnis noch Anhänge. Der Abstract aus
+main.typ wird nur informativ angezeigt und zählt NICHT zur Gesamtwortzahl.
 Typst-Syntax (Imports, Diagramm-Code, Figure-Caption-Aufrufe, Zitationen,
 Labels) wird herausgestrippt, bevor gezählt wird.
 
@@ -19,14 +20,14 @@ MAIN_TYP = pathlib.Path(__file__).parent / "main.typ"
 
 # Richtwerte aus CLAUDE.md
 TARGETS = {
-    "Abstract": 200,
-    "01_Einleitung.typ": 350,
-    "02_Grundlagen.typ": 550,
-    "03_MCP.typ": 800,
-    "04_Sicherheit.typ": 900,
-    "05_Fazit.typ": 400,
+    "Abstract": 220,
+    "01_Einleitung.typ": 290,
+    "02_Grundlagen.typ": 430,
+    "03_MCP.typ": 680,
+    "04_Sicherheit.typ": 1400,
+    "05_Fazit.typ": 360,
 }
-TOTAL_TARGET = 3200
+TOTAL_TARGET = 3160
 
 
 def strip_balanced(text: str, opener_re: str) -> str:
@@ -138,15 +139,15 @@ def main() -> int:
 
     total = 0
 
-    # Abstract aus main.typ
+    # Abstract aus main.typ — wird nur informativ angezeigt, zählt NICHT zur
+    # Gesamtwortzahl der Arbeit (Verzeichnis- bzw. Vorspann-Element).
     if MAIN_TYP.is_file():
         abstract = extract_abstract(MAIN_TYP.read_text(encoding="utf-8"))
         if abstract is not None:
             n = count_words(strip_typst(abstract))
             target = TARGETS.get("Abstract", 0)
             pct = f"{100 * n / target:>3.0f} %" if target else "   —"
-            print(f"{'Abstract':<26}{n:>8}  {target if target else '':>6}  {pct:>11}")
-            total += n
+            print(f"{'Abstract (nicht im Total)':<26}{n:>8}  {target if target else '':>6}  {pct:>11}")
 
     for path in files:
         raw = path.read_text(encoding="utf-8")
